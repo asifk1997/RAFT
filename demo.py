@@ -23,7 +23,7 @@ def load_image(imfile):
     return img[None].to(DEVICE)
 
 
-def viz(img, flo):
+def viz(img, flo,i):
     img = img[0].permute(1,2,0).cpu().numpy()
     flo = flo[0].permute(1,2,0).cpu().numpy()
     
@@ -34,8 +34,11 @@ def viz(img, flo):
     # import matplotlib.pyplot as plt
     # plt.imshow(img_flo / 255.0)
     # plt.show()
-
+    filename = "results"+str(i)+".png"
+    
+    
     cv2.imshow('image', img_flo[:, :, [2,1,0]]/255.0)
+    cv2.imwrite(filename, img_flo[:, :, [2,1,0]]/255.0)
     cv2.waitKey()
 
 
@@ -46,7 +49,7 @@ def demo(args):
     model = model.module
     model.to(DEVICE)
     model.eval()
-
+    i=0
     with torch.no_grad():
         images = glob.glob(os.path.join(args.path, '*.png')) + \
                  glob.glob(os.path.join(args.path, '*.jpg'))
@@ -60,7 +63,8 @@ def demo(args):
             image1, image2 = padder.pad(image1, image2)
 
             flow_low, flow_up = model(image1, image2, iters=20, test_mode=True)
-            viz(image1, flow_up)
+            viz(image1, flow_up,i)
+            i = i+1
 
 
 if __name__ == '__main__':

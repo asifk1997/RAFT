@@ -1,5 +1,5 @@
 # RAFT
-This repository contains the source code for our paper:
+This repository was forked from authors of this paper, We also tried to do some analysis on this project we have added report and presentation of our analysis also in this repository, we thank authors for their wonderful work:
 
 [RAFT: Recurrent All Pairs Field Transforms for Optical Flow](https://arxiv.org/pdf/2003.12039.pdf)<br/>
 ECCV 2020 <br/>
